@@ -130,7 +130,7 @@ class DefaultStyles {
             },
 
             biggestCard:
-            {   width: '72vw',
+            {   width: '85vw',
                 height: "84.1vh",
                 border: appBorders.borderThin,
                 

@@ -100,7 +100,7 @@ export default class Dispatch extends Component {
      
      /> 
      {/* //notification: int variable of watching something? Or string pointing to type that gets info from object for notification. Object contains function for notifications, and it goes and interacts with it. Either give it a string or a User Object. */}
-     <div style={{paddingTop:"50px", paddingLeft:"100px", width:"100%", height:"100%"}}>
+     <div style={{paddingTop:"50px", paddingLeft:"200px", width:"100%", height:"100%"}}>
      <Routes>
       {state.switchCase?.map((obj, index)=>
         <Route path={obj.path} element={<obj.comp app={app}/>} />

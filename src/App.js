@@ -5,7 +5,7 @@ import { forFactory } from './models/myComponents';
 import styleService from './services/styleService';
 import ComponentListInterface from './componentListNPM/componentListInterface';
 import ThemeFactory from './componentListNPM/themes/themeFactory';
-
+import IframeContainer from './view/iframeContainer';
 // import NavThemeFactory from './componentListNPM/navThemes/navThemeFactory';
 
 //fonts
@@ -51,7 +51,7 @@ export default class App extends Component {
       defaultTheme: "default",
       globalTheme: "",
       switchCase:[
-        
+        {path:"/", name:"iframe", comp:IframeContainer}
       ]
 
     }

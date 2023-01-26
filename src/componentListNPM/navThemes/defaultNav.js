@@ -28,7 +28,7 @@ class DefaultNav {
           },
           // Styling for Side Bar
           left: {
-            navContainer: {top: "0", left: "0", flexDirection: "column", width: "393px", height: "100vh", display:"flex", position: "absolute",backgroundColor:"white" },
+            navContainer: {top: "0", left: "0", flexDirection: "column", width: "200px", height: "100vh", display:"flex", position: "absolute",backgroundColor:"white", borderRight:"1px solid black" },
             sectionsContainer: {display:"flex", flexDirection:"column", height:"100%", width:"193px", backgroundColor:"white"},
             sectionOne: {display:"flex", flexDirection:"column", height:"100px", alignItems: "center", justifyContent: "center"},
             sectionTwo: {display:"flex", flexDirection:"column", flex:"auto"},
