@@ -2,7 +2,10 @@
 // import DefaultTopNav from "./defaultTopBar";
 import flinnApps from "./flinnAppsNav";
 import LegatoNav from "./legatoNav";
+import LegatoNavDark from "./legatoNavDark";
+import MinimalNav from "./minimalNav";
 import DefaultNav from "./defaultNav.js";
+import minimalNav from "./minimalNav";
 
 class NavThemeFactory {
     operationsFactory;
@@ -11,7 +14,9 @@ class NavThemeFactory {
     //     defaultSideNav: DefaultSideNav.getNavTheme(),
     //    defaultTopNav: DefaultTopNav.getNavTheme(),
     legato: LegatoNav.getNavTheme(),
+    legatoDark: LegatoNavDark.getNavTheme(),
     flinnApps: flinnApps.getNavTheme(),
+    minimal: minimalNav.getNavTheme(),
     default: DefaultNav.getNavTheme(),
     }
 

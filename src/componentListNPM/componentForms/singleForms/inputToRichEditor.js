@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import DOMPurify from 'dompurify';
 import moment from 'moment';
+import FormsThemeFactory from '../formThemes/formThemeFactory';
 
-class RichTextComponent extends Component {
+class InputToRichTextComponent extends Component {
     constructor(props) {
         super(props);
-        this.addTag=this.addTag.bind(this);
+        // this.addTag=this.addTag.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.wrapperRef = React.createRef();
         this.ref = React.createRef();
@@ -39,62 +40,62 @@ class RichTextComponent extends Component {
         };
     }
     sanitizedData = (data) => ({
-        __html: DOMPurify.sanitize(data)
+         __html: DOMPurify.sanitize(data)
       })
 
-   async addTag(innerText, value, c){
-    if(value===" " && this.state.backSlash){
-        if(this.state.m || this.state.d ||this.state.l||this.state.e||this.state.f){
-    for(let i=0; i<innerText.length; i++){
-        let n = innerText[i];
-        if(innerText[i]==="/" && innerText[i+1]===c){
-            let text= "";
-            let j = i+2;
-            let bool = true;
+//    async addTag(innerText, value, c){
+//     if(value===" " && this.state.backSlash){
+//         if(this.state.m || this.state.d ||this.state.l||this.state.e||this.state.f){
+//     for(let i=0; i<innerText.length; i++){
+//         let n = innerText[i];
+//         if(innerText[i]==="/" && innerText[i+1]===c){
+//             let text= "";
+//             let j = i+2;
+//             let bool = true;
         
-            while(bool ){
-                let bool1 = false;
-                if(innerText[j]==="&"){
-                    bool1=true;
-                }
-                if(bool1 && (innerText[j+6]==="&"||innerText[j+6]===" ") ){
-                    bool=false;
-                    break;
-                }
-                text+=innerText[j];
-                j++;
-            }
+//             while(bool ){
+//                 let bool1 = false;
+//                 if(innerText[j]==="&"){
+//                     bool1=true;
+//                 }
+//                 if(bool1 && (innerText[j+6]==="&"||innerText[j+6]===" ") ){
+//                     bool=false;
+//                     break;
+//                 }
+//                 text+=innerText[j];
+//                 j++;
+//             }
             
-            let preText = innerText.substring(0, i);
-            let newText = this.state.d? `<b n3z=${this.state.n} style=" color:#FFD700">${moment().format("MMM Do YY")}</b>` :`<b  n3z=${this.state.n} style=" color:${this.state.colors[c]}">${text} </b>`
+//             let preText = innerText.substring(0, i);
+//             let newText = this.state.d? `<b n3z=${this.state.n} style=" color:#FFD700">${moment().format("MMM Do YY")}</b>` :`<b  n3z=${this.state.n} style=" color:${this.state.colors[c]}">${text} </b>`
             
-            let postText = innerText.substring(j);
-            innerText = preText+newText+postText;
-            break;
-        }
-    }
-}
+//             let postText = innerText.substring(j);
+//             innerText = preText+newText+postText;
+//             break;
+//         }
+//     }
+// }
     
-    let offset = await Cursor.getCurrentCursorPosition(this.ref.current)-3;
-   this.ref.current.innerHTML=innerText;
+//     let offset = await Cursor.getCurrentCursorPosition(this.ref.current)-3;
+//    this.ref.current.innerHTML=innerText;
    
-    this.setCaret(offset);
-        let n = this.state.n+1;
-        this.setState({
-            backSlash:false,
-            m:false,
-            d:false,
-            e:false,
-            f:false,
-            l:false,
-            doubleSpace:false,
-            change:true,
-            n:n
+//     this.setCaret(offset);
+//         let n = this.state.n+1;
+//         this.setState({
+//             backSlash:false,
+//             m:false,
+//             d:false,
+//             e:false,
+//             f:false,
+//             l:false,
+//             doubleSpace:false,
+//             change:true,
+//             n:n
 
 
-        })
-    }
-   }
+//         })
+//     }
+//    }
 
 
 
@@ -103,51 +104,55 @@ class RichTextComponent extends Component {
         let value = e.key;
         let innerText =DOMPurify.sanitize(this.ref.current.innerHTML);
         
-        if(value===" " &&this.state.lastChar===" " &&this.state.backSlash){
-            await this.setState({doubleSpace:true})
-        }
+//         if(value===" " &&this.state.lastChar===" " &&this.state.backSlash){
+//             await this.setState({doubleSpace:true})
+//         }
         
- if(this.state.doubleSpace){
+//  if(this.state.doubleSpace){
     
-    let c = 'm'
-    let obj ={
-        m: this.state.m,
-        l: this.state.l,
-        d: this.state.d,
-        e: this.state.e,
-        f: this.state.f,
-    }
-    for(const key in obj){
-        if(obj[key]){
-            c=key
-            break;
-        }
-    }
+//     let c = 'm'
+//     let obj ={
+//         m: this.state.m,
+//         l: this.state.l,
+//         d: this.state.d,
+//         e: this.state.e,
+//         f: this.state.f,
+//     }
+//     for(const key in obj){
+//         if(obj[key]){
+//             c=key
+//             break;
+//         }
+//     }
     
-           this.addTag(innerText, value,c )
-        }
-        if(value === "/"&& !this.state.backSlash){
-            this.setState({backSlash:true});
-        }
-        if(this.state.backSlash && value === 'm' && this.state.lastChar==="/"){
-            this.setState({m:true, d:false, e:false, f:false, l:false}) 
-        }
-        if(this.state.backSlash && value === 'd'&& this.state.lastChar==="/"){
-            this.setState({m:false, d:true, e:false, f:false, l:false}) 
-        }
-        if(this.state.backSlash && value === 'e'&& this.state.lastChar==="/"){
-            this.setState({m:false, d:false, e:true, f:false, l:false}) 
-        }
-        if(this.state.backSlash && value === 'f'&& this.state.lastChar==="/"){
-            this.setState({m:false, d:false, e:false, f:true, l:false}) 
-        }
-        if(this.state.backSlash && value === 'l'&& this.state.lastChar==="/"){
-            this.setState({m:false, d:false, e:false, f:false, l:true}) 
-        }
+//            this.addTag(innerText, value,c )
+//         }
+        // if(value === "/"&& !this.state.backSlash){
+        //     this.setState({backSlash:true});
+        // }
+        // if(this.state.backSlash && value === 'm' && this.state.lastChar==="/"){
+        //     this.setState({m:true, d:false, e:false, f:false, l:false}) 
+        // }
+        // if(this.state.backSlash && value === 'd'&& this.state.lastChar==="/"){
+        //     this.setState({m:false, d:true, e:false, f:false, l:false}) 
+        // }
+        // if(this.state.backSlash && value === 'e'&& this.state.lastChar==="/"){
+        //     this.setState({m:false, d:false, e:true, f:false, l:false}) 
+        // }
+        // if(this.state.backSlash && value === 'f'&& this.state.lastChar==="/"){
+        //     this.setState({m:false, d:false, e:false, f:true, l:false}) 
+        // }
+        // if(this.state.backSlash && value === 'l'&& this.state.lastChar==="/"){
+        //     this.setState({m:false, d:false, e:false, f:false, l:true}) 
+        // }
         await this.setState({save:innerText, lastChar: value});
 
         let save =DOMPurify.sanitize(this.ref.current.innerHTML);
-        this.props.handleHTMLChange(save);
+        this.setState({theHtml:save})
+        if(!this.props.updateOnClickOutside){
+            this.props.handleHTMLChange(save);
+
+        }
     }
 
 
@@ -159,10 +164,22 @@ class RichTextComponent extends Component {
         Cursor.setCurrentCursorPosition(offset, richText);
         richText.focus();
 }
+componentDidUpdate(){
+    if(this.props.app?.state.updateInput){
+        this.setState({textBox:false})
+    }
+}
 
     async componentDidMount() {
-        debugger
-        let html =  await DOMPurify.sanitize(this.props.html) 
+        
+        let html;
+        if(this.props.html!==undefined){
+            html =  await DOMPurify.sanitize(this.props.html) 
+
+        }
+        else{
+           html= await DOMPurify.sanitize(this.props.value) 
+        }
         
         this.setState({textHtml:html})
        
@@ -178,19 +195,26 @@ class RichTextComponent extends Component {
             {
                 this.props.emitClickedOutside(this.state);
             }
+            if(this.props.updateOnClickOutside){
+                this.props.handleHTMLChange(this.state.theHtml);
+    
+            }
         }
     }
 
 
     render() {
-
+        let theme= undefined;
+        if(this.props.theme){
+            theme = FormsThemeFactory.getFormsThemeFactory()[this.props.theme]
+        }
         let inputType = {
             normal: <div 
             ref={this.ref}
             
             dangerouslySetInnerHTML={{__html: this.state.textHtml}}
             contentEditable={true} className={this.props.class ? this.props.class : "form-control"}
-            style={this.props.style? this.props.style: {height:"200px"}}
+            style={this.props.inputStyle? this.props.inputStyle: theme!==undefined? theme.richEditorStyle: {height:"200px"}}
             id="richText"
             onClick={this.props.onClick}></div>
            
@@ -200,9 +224,12 @@ class RichTextComponent extends Component {
 
 
         return (
-            <div ref={this.wrapperRef} style={this.props.wrapperStyle} className={this.props.wrapperClass}>
-                {this.props.label && (<label style={this.props.labelStyle} className={this.props.labelClass}>{this.props.label}</label>)}
-                {inputType[this.props.input]}
+            <div ref={this.wrapperRef} style={this.props.wrapperStyle?{...this.props.wrapperStyle, position:"relative"}:theme!==undefined? {...theme.richEditorWrapperStyle, position:"relative"}:{width:"300px", position:"relative"}} className={this.props.wrapperClass}>
+                {this.state.textBox &&(<div onClick={()=>{this.setState({textBox:false})}} style={{position:"absolute", right:"0", top:"0"}}>X</div>)}
+                {this.props.label && (<label style={this.props.labelStyle? this.props.labelStyle:theme!==undefined?theme.richEditorLabelStyle:undefined} className={this.props.labelClass}>{this.props.label}</label>)}
+                {!this.state.textBox?(
+                <input type="text" value={this.state.value} style={this.props.inputStartStyle?this.props.inputStartStyle:theme!==undefined?theme.inputStart:undefined} onClick={()=>{this.setState({textBox:true})}} />):(
+                <>{inputType[this.props.input]}</>)}
                 <div className="componentErrorMessage" >{this.props.errorMessage}</div>
             </div>
         );
@@ -300,4 +327,4 @@ class Cursor {
     }
 }
 
-export default RichTextComponent;
+export default InputToRichTextComponent;

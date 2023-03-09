@@ -1,5 +1,6 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
+import "../../App.css";
 import NavItems from './navItem';
 
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';

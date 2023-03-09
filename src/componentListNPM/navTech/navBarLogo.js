@@ -1,5 +1,6 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
+import "../../App.css";
 
 import { BrowserRouter, Link, redirect, Route, Routes } from 'react-router-dom';
 import NavThemeFactory from '../navThemes/navThemeFactory';
@@ -25,7 +26,15 @@ export default class Logo extends Component {
       logoImageStyle={this.props.options?.logoImageStyle} 
       logoImageTheme={this.props.options?.logoImageTheme} />,
 
+      legatoDark: <LegatoLogo logo={this.props.logo} app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options}
+      logoImageStyle={this.props.options?.logoImageStyle} 
+      logoImageTheme={this.props.options?.logoImageTheme} />,
+
       flinnApps:<FlinnAppsLogo logo={this.props.logo} app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options}
+      logoImageStyle={this.props.options?.logoImageStyle} 
+      logoImageTheme={this.props.options?.logoImageTheme} />,
+
+      minimal:<MinimalLogo logo={this.props.logo} app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options}
       logoImageStyle={this.props.options?.logoImageStyle} 
       logoImageTheme={this.props.options?.logoImageTheme} />,
 
@@ -85,7 +94,28 @@ class FlinnAppsLogo extends Component {
       <img src={this.props.logo} style={this.props.logoImageStyle?{...this.props.logoImageStyle}:this.props.logoImageTheme?{...f[this.props.logoImageTheme][this.props.alignment].logoStyle}:{...logo.logoStyle}} />
   )}
 }
+
 class LegatoLogo extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    let app = this.props.app;
+    let state = app.state;
+    let styles = state.styles;
+    
+    let switchCase = app.state.switchCase;
+    let dispatch = app.dispatch;
+    let f = NavThemeFactory?.getNavThemeFactory();
+    let style = this.props.theme?f[this.props.theme]:state.theme?f[state.theme]:f.default;
+    let logo = style[this.props.alignment];
+  return (
+      <img src={this.props.logo} style={this.props.logoImageStyle?{...this.props.logoImageStyle}:this.props.logoImageTheme?{...f[this.props.logoImageTheme][this.props.alignment].logoStyle}:{...logo.logoStyle}} />
+  )}
+}
+
+class MinimalLogo extends Component {
   constructor(props){
     super(props);
   }

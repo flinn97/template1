@@ -1,8 +1,11 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
+import "../../App.css";
 import NavItems from './navItem';
 
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Logo from './navBarLogo';
+import ProfilePic from './navBarProfilePic';
 
 import NavThemeFactory from '../navThemes/navThemeFactory';
 

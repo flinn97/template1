@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-class TextBoxComponent extends Component {
+import FormsThemeFactory from '../formThemes/formThemeFactory';
+class InputFormComponent extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -15,11 +15,24 @@ class TextBoxComponent extends Component {
     }
     handleChange(e) {
 
+        if(this.props.type==="checkbox"){
+            this.check();
+            return
+        }
         
         let { name, value } = e.target;
         
         this.setState({ value: value });
-        this.props.handleChange(e);
+       
+        if(!this.props.updateOnClickOutside){
+            this.props.handleChange(e);
+
+        }
+    }
+    async check(){
+        
+        await this.setState({value:!this.state.value})
+        this.props.objDispatch(this.state.value);
     }
 
     componentDidMount() {
@@ -34,15 +47,21 @@ class TextBoxComponent extends Component {
             {
                 this.props.emitClickedOutside(this.state);
             }
+            if(this.props.updateOnClickOutside){
+                debugger
+                this.props.objDispatch(this.state.value);
+
+            }
         }
     }
     render() {
-
+        let theme= undefined;
+        if(this.props.theme){
+            theme = FormsThemeFactory.getFormsThemeFactory()[this.props.theme]
+        }
         let inputType = {
-            required: <textarea 
-            cols ={this.props.cols?this.props.cols:""}
-            rows ={this.props.rows?this.props.rows:5}
-            resize={this.props.resize?this.props.resize:true}
+            required: <input 
+            type={this.props.type}
             className={this.props.class ? this.props.class : "form-control"}
             placeholder={this.props.placeholder}
             onChange={this.handleChange}
@@ -51,7 +70,7 @@ class TextBoxComponent extends Component {
             min={this.state.min}
             max={this.state.max}
             autoComplete={this.props.autoComplete ? this.props.autoComplete : "off"}
-            style={this.props.inputStyle}
+            style={this.props.inputStyle?this.props.inputStyle:theme!==undefined? theme.inputStyle:undefined}
             id={this.props.id}
             checked={this.props.checked}
             spellCheck={(this.props.type === "password" || this.props.spellCheck === undefined) ? false : this.props.spellCheck}
@@ -60,11 +79,8 @@ class TextBoxComponent extends Component {
             onClick={this.props.onClick}
                 required
                
-            ></textarea>,
-            normal: <textarea 
-            cols ={this.props.cols?this.props.cols:""}
-            rows ={this.props.rows?this.props.rows:5}
-            resize={this.props.resize?this.props.resize:true}
+            />,
+            normal: <input
                 type={this.props.type}
                 className={this.props.class ? this.props.class : "form-control"}
                 placeholder={this.props.placeholder}
@@ -75,20 +91,17 @@ class TextBoxComponent extends Component {
                 max={this.state.max}
                 onClick={this.props.onClick}
                 autoComplete={this.props.autoComplete ? this.props.autoComplete : "off"}
-                style={this.props.inputStyle}
+                style={this.props.inputStyle?this.props.inputStyle:theme!==undefined? theme.inputStyle:undefined}
                 id={this.props.id}
                 checked={this.props.checked}
                 spellCheck={(this.props.type === "password" || this.props.spellCheck === undefined) ? false : this.props.spellCheck}
                 minLength={this.props.minLength}
                 maxLength={this.props.maxLength}
-            ></textarea>,
-            disabled: <textarea 
-            cols ={this.props.cols?this.props.cols:""}
-            rows ={this.props.rows?this.props.rows:5}
-            resize={this.props.resize?this.props.resize:false}
+            />,
+            disabled: <input
             id={this.props.id}
                 type={this.props.type}
-                style={this.props.inputStyle}
+                style={this.props.inputStyle?this.props.inputStyle:theme!==undefined? theme.inputStyle:undefined}
                 className={this.props.class ? this.props.class : "form-control"}
                 placeholder={this.props.placeholder}
                 value={this.state.value}
@@ -96,15 +109,15 @@ class TextBoxComponent extends Component {
                 disabled
 
 
-            ></textarea>
+            />
         }
-
+        
 
 
 
         return (
-            <div ref={this.wrapperRef} style={this.props.wrapperStyle} className={this.props.wrapperClass}>
-                {this.props.label && (<label style={this.props.labelStyle} className={this.props.labelClass}>{this.props.label}</label>)}
+            <div ref={this.wrapperRef} style={this.props.wrapperStyle?this.props.wrapperStyle:theme!==undefined? theme.wrapperStyle:undefined} className={this.props.wrapperClass}>
+                {this.props.label && (<label style={this.props.labelStyle?this.props.labelStyle:theme!==undefined? theme.labelStyle:undefined} className={this.props.labelClass}>{this.props.label}</label>)}
                 {inputType[this.props.input]}
                 <div className="componentErrorMessage" >{this.props.errorMessage}</div>
             </div>
@@ -114,4 +127,4 @@ class TextBoxComponent extends Component {
 
 
 
-export default TextBoxComponent;
+export default InputFormComponent;

@@ -1,10 +1,12 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
+import "../../App.css";
 import Legato from './legatoNavBar.js';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavThemeFactory from '../navThemes/navThemeFactory.js';
 import DefaultNav from './defaultNavBar.js'
 import FlinnApps from './flinnAppsNavBar.js';
+import Minimal from './minimalNavBar.js';
 
 
 export default class NavBar extends Component {
@@ -21,7 +23,9 @@ export default class NavBar extends Component {
     let dispatch = app.dispatch;
     let template = {
       legato : <Legato app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme: "legato"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
-       flinnApps :  <FlinnApps app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme: "flinnApps"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
+      legatoDark: <Legato app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme: "legatoDark"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
+      flinnApps :  <FlinnApps app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme: "flinnApps"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
+      minimal : <Minimal app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme: "minimal"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
       default :  <DefaultNav app={app} alignment={this.props.alignment} theme={this.props.theme? this.props.theme:state.defaultTheme?state.defaultTheme: "default"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
     }
     let f = NavThemeFactory?.getNavThemeFactory();
