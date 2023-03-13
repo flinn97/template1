@@ -4,11 +4,10 @@ import defaultProfilePic from './fakePortrait.png';
 import arrowIcon from './downArrow.svg';
 // import '../fonts/Inter/Inter-ExtraBold.ttf';
 // import auth from '../services/auth';
-import "../../App.css";
+import "../App.css";
 
 import { BrowserRouter, Link, redirect, Route, Routes } from 'react-router-dom';
 import NavThemeFactory from '../navThemes/navThemeFactory';
-
 export default class ProfilePic extends Component {
   constructor(props){
     super(props);

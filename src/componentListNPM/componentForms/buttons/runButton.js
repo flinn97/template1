@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormsThemeFactory from '../formThemes/formThemeFactory';
 
-class UpdateAndRunButton extends Component {
+class RunButton extends Component {
     constructor(props) {
         super(props);
         this.wrapperRef = React.createRef();
@@ -63,8 +63,15 @@ class UpdateAndRunButton extends Component {
         return (
             <div ref={this.wrapperRef} style={this.props.wrapperStyle? this.props.wrapperStyle: theme!==undefined? theme.runbuttonWrapperStyle:{width:"100px", height:"20px", background:"red", borderRadius:"7px", display:"flex", justifyContent:"center", alignItems:"center"}} className={this.props.wrapperClass}>
                 <div style={this.props.buttonTextStyle?{...this.props.buttonTextStyle}:theme!==undefined?theme.buttonTextStyle:{}} onClick={this.props.onClick?this.props.onClick: async()=>{
-                   
+                   if(this.state.obj){
                     this.state.obj[0].getOperationsFactory().run();
+
+                   }
+                   else{
+                    if(this.props.app){
+                        this.props.app.state.opps.run();
+                    }
+                   }
                     this.props.app.dispatch({updateRun:true})
                 }}
                 >{this.props.text? this.props.text: "save"}</div>
@@ -75,4 +82,4 @@ class UpdateAndRunButton extends Component {
 
 
 
-export default UpdateAndRunButton;
+export default RunButton;

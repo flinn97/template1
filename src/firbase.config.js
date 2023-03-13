@@ -5,12 +5,14 @@ import {getAuth} from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvmnwmc5Ckf2Thz7LHPoxMjKlxiEqTyU0",
-  authDomain: "legato-1f46f.firebaseapp.com",
-  projectId: "legato-1f46f",
-  storageBucket: "legato-1f46f.appspot.com",
-  messagingSenderId: "161584597472",
-  appId: "1:161584597472:web:26c713eee21328a7874385"
+  apiKey: "AIzaSyDC6-LoVJthmOIMpFAsbf6XMKXRcIJwXWU",
+  authDomain: "flinnapps.firebaseapp.com",
+  databaseURL: "https://flinnapps-default-rtdb.firebaseio.com",
+  projectId: "flinnapps",
+  storageBucket: "flinnapps.appspot.com",
+  messagingSenderId: "897486070631",
+  appId: "1:897486070631:web:bed8e6879ff6bc4662c5c2",
+  measurementId: "G-LH7RWHZ9R1"
 };
 
 // Initialize Firebase

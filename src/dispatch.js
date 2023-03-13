@@ -1,13 +1,15 @@
 import './App.css';
 import { Component } from 'react';
-import logo from './view/testProfile.png';
+import logo from './componentListNPM/navTech/Legato.svg'
 // import Home from './view/home';
 import Nav from './componentListNPM/navTech/nav.js';
 // import Login from './view/login';
 // import Register from './view/register';
 import './index.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-
+import AddTag from './view/addTag';
+import AddContact from './view/addContact';
+import Login from './componentListNPM/componentForms/fullForms/registrationStuff/login';
 // import DeletePopup from './view/deletePopup';
 // import KeepDel from './view/keepDelete';
 
@@ -84,14 +86,23 @@ export default class Dispatch extends Component {
     let app = this.props.app;
     let state = app.state;
     let styles =state.styles;
+    let center = window.innerWidth<600? {
+      display: "flex",
+      flexDirection:"column",
+      justifyContent:"center",
+      alignItems:"center"
+    }: undefined
   return (
 <BrowserRouter>
+{!state.login?(
+  <Login app={app } />
+):(
     <div style={{
       width:"100%", 
       height:"96vh",
       }}>
         
-     <Nav  app={app} type="sideBarNav"  template="legato"
+     <Nav  app={app} type="sideBarNav"  template="legatoDark"
      options={{
       logo:logo,
       
@@ -100,7 +111,10 @@ export default class Dispatch extends Component {
      
      /> 
      {/* //notification: int variable of watching something? Or string pointing to type that gets info from object for notification. Object contains function for notifications, and it goes and interacts with it. Either give it a string or a User Object. */}
-     <div style={{paddingTop:"50px", paddingLeft:"300px", width:"100%", height:"100%"}}>
+    <div style={{...center, paddingTop:"50px", paddingLeft:window.innerWidth<600? "0px": window.innerWidth<1000?"10vw": window.innerWidth<1200? "25vw": window.innerWidth<1400? "18vw": "15vw", width:"100%", height:"100%"}}>
+    {(state.popupSwitch==="addTag"&& state.currentComponent?.getJson().type==="tag")&& <AddTag app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+        {(state.popupSwitch==="addContact"&& state.currentComponent?.getJson().type==="person")&& <AddContact app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
      <Routes>
       {state.switchCase?.map((obj, index)=>
         <Route path={obj.path} element={<obj.comp app={app}/>} />
@@ -108,7 +122,7 @@ export default class Dispatch extends Component {
     
 </Routes>
 </div>
-     </div>
+     </div>)}
 
      
      </BrowserRouter>

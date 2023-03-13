@@ -87,7 +87,7 @@ export default class FormWithUpdateAndRun extends Component {
             handleHTMLChange={this.handleHTMLChange}
                         
                         />
-                        <UpdateAndRunButton app={app} obj={this.props.obj} updateObj={{...this.state}} wrapperStyle={this.props.runButtonStyle} text={this.props.text}
+                        <UpdateAndRunButton app={app} obj={this.props.obj} theme={this.props.theme} updateObj={{...this.state}} wrapperStyle={this.props.runButtonStyle} text={this.props.text}
                         buttonTextStyle={this.props.buttonTextStyle}/>
                  </div>
              )

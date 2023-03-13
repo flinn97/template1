@@ -2,6 +2,17 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage
 import { doc, getDocs, collection, getDoc, updateDoc, addDoc, where, query, setDoc, deleteDoc, onSnapshot, querySnapshot, Timestamp, serverTimestamp, orderBy } from "firebase/firestore";
 import { db, storage, auth } from '../firbase.config.js';
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, getAuth,sendPasswordResetEmail, updateEmail, deleteUser } from "firebase/auth";
+
+import spawnPic from "../pics/runesTest1/0green.png";
+import spawnLogo from "../pics/runesTest1/1grey.png";
+import likeheart from "../pics/runesTest1/0red.png";
+import dragon from "../pics/runesTest1/1green.png";
+import beholder from "../pics/runesTest1/0grey.png";
+import celestial from "../pics/runesTest1/2green.png";
+import keep from "../pics/runesTest1/2grey.png";
+import kraken from "../pics/runesTest1/purple.png";
+
+
 class Auth {
 
     async getCurrentUser() {
@@ -25,6 +36,63 @@ class Auth {
     //     componentList.addComponents(data);
 
     // }
+
+    async getKinstoneMaterial( componentList, ) {
+        let piclist= [spawnLogo, spawnPic, likeheart, kraken, dragon, beholder, keep, celestial]
+        let list = ["obsidian", "petrified wood", "amethyst", "meteorites", "dragonstone", "shadowrock", "thunderstone", "way stone"]
+        let i = 0;
+        let rawData = [];
+        for(let el of list){
+            rawData.push({type:"element", title:el})
+            rawData[i].picURL=piclist[i]
+            i++
+        }
+       
+        await componentList.addComponents(rawData, false);
+                       
+       
+    }
+
+    async createInitialStages( componentList, ) {
+        let list = ["Not Started", "First Email", "Second Email", "Follow up", "Nurture", "Not Interested",]
+        let rawData = [];
+        let i = 0;
+        for(let el of list){
+           
+            rawData.push({type:"tag", order:i, name:el, _id:Math.floor(Math.random()*10000).toString()})
+            i++
+            
+        }
+       
+        await componentList.addComponents(rawData, false);
+                       
+       
+    }
+   
+    async getuser(email, componentList, dispatch) {
+        // debugger
+        
+        let list= componentList.getComponents();
+        let IDlist = [];
+        for(const key in list){
+            IDlist.push(list[key].getJson()._id)
+        }
+        let rawData = [];
+        const components = await query(collection(db, "Samanthausers", "SamanthaAPP", "components"), where('owner', '==', email), orderBy("date"));
+        let comps = await getDocs(components);
+        for (const key in comps.docs) {
+            let data = comps.docs[key].data()
+            if(!IDlist.includes(data._id)){
+            rawData.push(data);
+            }
+        }
+        await componentList.addComponents(rawData, false);
+        await componentList.sortSelectedList("tag", "order")
+        if(dispatch){
+            dispatch({login:true, user:componentList.getComponent('user', email)})
+
+        }
+    }
 
     async GetAllData(email, componentList, dispatch) {
         
@@ -87,10 +155,8 @@ class Auth {
     }
    
     async login(email, password, componentList, dispatch) {
-        if(email!=="taylor@flinnapps.com"){
-            return
-        }
-        // debugger
+        
+        debugger
         let user;
         await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -105,7 +171,9 @@ class Auth {
             });
             if(user){
                 let saveUser =  user
-                await this.GetAllData(email, componentList, dispatch);
+                await localStorage.setItem("user", JSON.stringify(saveUser));
+                await this.getuser(email, componentList,dispatch);
+                
                 
             }
             return user;
@@ -161,7 +229,7 @@ class Auth {
      */
     async dispatch(obj, email) {
 
-        //debugger
+        debugger
         for (const key in obj) {
             let operate = obj[key];
             for (let i = 0; i < operate.length; i++) {
@@ -171,13 +239,18 @@ class Auth {
                 switch (key) {
                     case "add":
                         component.collection = email;
-                        await setDoc(doc(db, 'DNDusers', "DNDAPP", 'components', component._id), component);
+                        if(!component.owner){
+                            component.owner=email
+                        }
+                        component.date = await serverTimestamp();
+                        await setDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component._id), component);
                         break;
                     case "del":
-                        await deleteDoc(doc(db, 'DNDusers', "DNDAPP", 'components', component));
+                        await deleteDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component));
                         break;
                     case "update":
-                        await updateDoc(doc(db, 'DNDusers', "DNDAPP", 'components', component._id), component);
+                        component.date = await serverTimestamp();
+                        await updateDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component._id), component);
                         break;
                 }
 

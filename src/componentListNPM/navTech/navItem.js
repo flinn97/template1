@@ -1,6 +1,6 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
-import "../../App.css";
+import "../App.css";
 
 // import '../fonts/Inter/Inter-VariableFont.ttf';
 
@@ -96,6 +96,7 @@ export default class NavItems extends Component {
     let wrapper = style[this.props.alignment];
     return (
       <div style={this.props.options?.linksWrapperStyle ? { ...this.props.options?.linksWrapperStyle } : this.props.options?.linksWrapperTheme ? { ...f[this.props.options?.linksWrapperTheme][this.props.alignment].linksWrapper } : { ...wrapper?.linksWrapper }}>
+        
         {this.props.options?.linksTheme ? theme[this.props.options?.linksTheme] : this.props.theme ? theme[this.props.theme] : theme.default}
       </div>
     )
@@ -185,21 +186,34 @@ class DefaultNavItems extends Component {
 class LegatoNavItems extends Component {
   constructor(props) {
     super(props);
+    this.changeActiveLink=this.changeActiveLink.bind(this);
     this.state = {
       active: undefined
     }
   }
-  async componentDidUpdate() {
-    let app = this.props.app;
-    let state = app.state;
-    let dispatch = app.dispatch;
-    if (state.linkChange) {
-      await this.setState({
-        active: state.linkChange
-      })
+  async changeActiveLink(){
+    if (this.props.app.state.linkChange) {
+      let app = this.props.app;
+      let state = app.state;
+      let dispatch = app.dispatch;
+      let linkChange = state.linkChange;
       await dispatch({
-        linkChange: undefined
+        linkChange: undefined,
+        changeActiveLink: false
       })
+      await this.setState({
+        active: linkChange
+      })
+     
+    }
+  }
+  async componentDidMount(){
+    this.changeActiveLink();
+  }
+  async componentDidUpdate(props, state) {
+    
+    if (this.props.app.state.linkChange !==props.app.state.linkChange) {
+      this.changeActiveLink();
     }
   }
 
@@ -280,21 +294,34 @@ class LegatoNavItems extends Component {
 class FlinnAppsNavItems extends Component {
   constructor(props) {
     super(props);
+    this.changeActiveLink=this.changeActiveLink.bind(this);
     this.state = {
       active: undefined
     }
   }
-  async componentDidUpdate() {
-    let app = this.props.app;
-    let state = app.state;
-    let dispatch = app.dispatch;
-    if (state.linkChange) {
-      await this.setState({
-        active: state.linkChange
-      })
+  async changeActiveLink(){
+    if (this.props.app.state.linkChange) {
+      let app = this.props.app;
+      let state = app.state;
+      let dispatch = app.dispatch;
+      let linkChange = state.linkChange;
       await dispatch({
-        linkChange: undefined
+        linkChange: undefined,
+        changeActiveLink: false
       })
+      await this.setState({
+        active: linkChange
+      })
+     
+    }
+  }
+  async componentDidMount(){
+    this.changeActiveLink();
+  }
+  async componentDidUpdate(props, state) {
+    
+    if (this.props.app.state.linkChange !==props.app.state.linkChange) {
+      this.changeActiveLink();
     }
   }
 
@@ -375,21 +402,34 @@ class FlinnAppsNavItems extends Component {
 class MinimalNavItems extends Component {
   constructor(props) {
     super(props);
+    this.changeActiveLink=this.changeActiveLink.bind(this);
     this.state = {
       active: undefined
     }
   }
-  async componentDidUpdate() {
-    let app = this.props.app;
-    let state = app.state;
-    let dispatch = app.dispatch;
-    if (state.linkChange) {
-      await this.setState({
-        active: state.linkChange
-      })
+  async changeActiveLink(){
+    if (this.props.app.state.linkChange) {
+      let app = this.props.app;
+      let state = app.state;
+      let dispatch = app.dispatch;
+      let linkChange = state.linkChange;
       await dispatch({
-        linkChange: undefined
+        linkChange: undefined,
+        changeActiveLink: false
       })
+      await this.setState({
+        active: linkChange
+      })
+     
+    }
+  }
+  async componentDidMount(){
+    this.changeActiveLink();
+  }
+  async componentDidUpdate(props, state) {
+    
+    if (this.props.app.state.linkChange !==props.app.state.linkChange) {
+      this.changeActiveLink();
     }
   }
 

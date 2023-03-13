@@ -1,13 +1,14 @@
 import DefaultMap from "./default";
 import LegatoMap from './legatoStudentList'
-
+import OutreachMap from "./outreachList";
 
 class MapThemeFactory {
     operationsFactory; 
 
     factory ={
        default: DefaultMap.getMapTheme(),
-       LegatoMap: LegatoMap.getMapTheme(),
+       legatoMap: LegatoMap.getMapTheme(),
+       outreachMap: OutreachMap.getMapTheme()
 
     }
 

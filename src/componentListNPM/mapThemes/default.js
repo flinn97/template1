@@ -5,7 +5,7 @@ class DefaultMap {
     getMapTheme(){
         let style={
         containerStyle: { 
-            default: {display:'flex', flexDirection:"column"},
+            default: {display:'flex', flexDirection:"column", marginTop:"20px"},
             row: {display:'flex', flexDirection:"row"},
             wrapRow:{ display:'flex', flexDirection:"row", flexWrap:"wrap"},
             wrapColumn:{ display:'flex', flexDirection:"column", flexWrap:"wrap"},
@@ -57,7 +57,7 @@ class DefaultMap {
           },
 
           innerCellStyle:{
-            default: {display:"flex", justifyContent:"center", alignItems:"center", marginLeft:"5px"},
+            default: {display:"flex", fontSize:"18px", width:window.innerWidth<600?"30vw":window.innerWidth<1000?"15vw":"9vw"},
             boldFont: {fontWeight:"700"},
           }, 
           iCellStyle:{

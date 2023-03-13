@@ -68,6 +68,25 @@ export default class OppsFactory {
         //return what was updated.
         return prep;
     }
+    removeFromRegister(obj){
+     
+  
+        let reg = this.getUpdater();
+        let add = [...reg.componentUpdate.add]
+        let del = [...reg.componentUpdate.del]
+        let update = [...reg.componentUpdate.update]
+        let list = add.includes(obj)?add:update.includes(obj)?update:del.includes(obj)?del:undefined;
+        let key =add.includes(obj)?'add':update.includes(obj)?'update':del.includes(obj)?'del':undefined;
+        if(list!==undefined){
+            let n = list.indexOf(obj);
+           list.splice(n, 1);
+
+           this.getUpdater().setSelectedRegister(key, list);
+        }
+
+        
+    
+    }
     /**
      * Prepare one to may objects based upon json sent.
      * Params can be either {[operate]+[yourObject]: {your json}} or an array of multiple of those

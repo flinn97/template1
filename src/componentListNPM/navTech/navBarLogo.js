@@ -1,6 +1,6 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
-import "../../App.css";
+import "../App.css";
 
 import { BrowserRouter, Link, redirect, Route, Routes } from 'react-router-dom';
 import NavThemeFactory from '../navThemes/navThemeFactory';

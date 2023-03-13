@@ -1,6 +1,6 @@
 import { Component } from 'react';
 // import auth from '../services/auth';
-import "../../App.css";
+import "../App.css";
 import NavItems from './navItem';
 // import NavTitle from './navTitle';
 
@@ -62,6 +62,7 @@ export default class FlinnApps extends Component {
         <NavItems app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={{...this.props.options, linkSection: 2}} />
         
       </div>
+      
       
      <div style={this.props.options?.sectionThreeStyle?{...this.props.options?.sectionThreeStyle}:
      this.props.options?.sectionThreeTheme?{...f[this.props.options?.sectionThreeTheme][this.props.alignment].sectionThree}:{...style.sectionThree}}>

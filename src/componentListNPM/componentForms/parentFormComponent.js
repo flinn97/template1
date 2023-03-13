@@ -9,6 +9,7 @@ import InputToTextBoxComponent from './singleForms/inputToTextBoxComponent.js';
 import InputToRichTextComponent from './singleForms/inputToRichEditor.js';
 import CheckBox from './singleForms/checkComponent.js';
 import FormWithUpdateAndRun from './buttons/formWithUpdateAndRun.js';
+import SelectComponent from './singleForms/selectComponent.js';
 /**
  * Parent form component has every option that is a single form or a button
  * 
@@ -82,6 +83,12 @@ class ParentFormComponent extends Component {
            })
     }
     }
+    componentDidUpdate(props, state){
+        if(this.props.obj!==props.obj){
+            this.componentDidMount();
+        }
+        
+    }
 
     /**
      * Prepare on click with a json object
@@ -133,7 +140,7 @@ class ParentFormComponent extends Component {
      * @param {*} event 
      */
     handleChange = async (event) => {
-        // //debugger
+        debugger
         const { name, value } = event.target
         for(const key in this.state.obj){
             this.state.obj[key].setJson({...this.state.obj[key].getJson(), [this.props.name]:value});
@@ -152,9 +159,23 @@ class ParentFormComponent extends Component {
             this.setState();
         }
     }
+
+     /**
+     * @param {} value 
+     */
+     handleChangeWithoutEvent(obj){
+       
+        for(const key in this.state.obj){
+            this.state.obj[key].setJson({...this.state.obj[key].getJson(), [obj.name]:obj.value});
+        }
+        
+    }
     
     render() {
-        let types ={
+        let types;
+        console.log(this.state.obj)
+        if(this.state.start){
+         types={
             text: <InputFormComponent 
             rows={this.props.rows}
             cols={this.props.cols}
@@ -397,8 +418,36 @@ class ParentFormComponent extends Component {
             input={this.props.required? "required": this.props.disabled? "disabled": "normal"}
             requiredMessage={this.props.requiredMessage}
             />,
+            select: <SelectComponent 
+            name={this.props.name}
+        defaultValue={this.props.defaultValue}
+        emitClickedOutside={this.props.emitClickedOutside}
+        id={this.props.id}
+        theme={this.props.theme}
+        objDispatch={this.objDispatch}
+        inputStyle={this.props.inputStyle}
+            app={this.props.app}
+            updateOnClickOutside= {this.props.updateOnClickOutside}
+            label={this.props.label}
+            prepareOnClick={this.props.prepareOnClick}
+            labelStyle={this.props.labelStyle}
+            labelClass={this.props.labelClass}
+            class={this.props.class}
+            onClick={this.props.prepareOnClickFunc? this.props.prepareOnClickFunc:this.prepareOnClick}
+            wrapperClass={this.props.wrapperClass}
+            wrapperStyle={this.props.wrapperStyle}
+            size={this.props.size}
+            selectOptions={this.props.selectOptions}
+            textOptions= {this.props.textOptions}
+            handleChangeWithoutEvent={!this.props.update? this.props.handleChangeWithoutEvent? this.props.handleChangeWithoutEvent: this.handleChangeWithoutEvent: ()=>{console.log("")}}
+            handleChange={this.props.func? this.props.func:this.handleChange} 
+            //  value={!this.state.obj?"": this.state.obj[0].getJson()[this.props.name]}
+            requiredMessage={this.props.requiredMessage}
+            input={this.props.required? "required": this.props.disabled? "disabled": this.props.inputType?this.props.inputType:"normal"}
+
+            />
            
-        }
+        }}
         return (
            <>{this.state.start&&(
             <>{this.props.type? types[this.props.type]:types.text} </>

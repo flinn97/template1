@@ -8,6 +8,7 @@ export default class Opps {
     constructor(componentListInterface){
         this.register=this.register.bind(this);
         this.add=this.add.bind(this);
+        this.setSelectedList=this.setSelectedList.bind(this);
         this.update=this.update.bind(this);
         this.del=this.del.bind(this);
         this.getComponents=this.getComponents.bind(this);
@@ -16,8 +17,10 @@ export default class Opps {
         this.check=this.check.bind(this);
         this.operationsFactory=componentListInterface.getOperationsFactory();
         this.operationsFactory.setRegister(this.register);
+        this.sortSelectedList=this.sortSelectedList.bind(this)
         this.componentListInterface=componentListInterface;
         this.dispatch=componentListInterface.dispatch;
+        
     }
     getComponents(){
         return this.components
@@ -206,6 +209,20 @@ export default class Opps {
        
         this.components= [...arr];
         this.setComponentsList(); 
+    }
+
+    setSelectedList(type, list){
+        this.componentsList[type] = list;
+       
+    }
+    sortSelectedList(type, filterKey, ){
+        if(!filterKey){
+            return
+        }
+        let list  = [...this.componentsList[type]];
+        list = list.sort(function(a, b){return a.getJson()[filterKey] - b.getJson()[filterKey]});
+        this.setSelectedList(type, list);
+        
     }
 
     

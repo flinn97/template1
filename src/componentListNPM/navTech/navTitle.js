@@ -3,7 +3,7 @@ import { Component } from 'react';
 import "../App.css";
 
 import { BrowserRouter, Link, redirect, Route, Routes } from 'react-router-dom';
-import NavThemeFactory from '../componentListNPM/navThemes/navThemeFactory';
+import NavThemeFactory from '../navThemes/navThemeFactory';
 
 export default class NavTitle extends Component {
   constructor(props){

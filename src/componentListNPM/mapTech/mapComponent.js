@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import "../App.css"
-import ParentFormComponent from '../componentListNPM/parentFormComponent';
+import ParentFormComponent from '../componentForms/parentFormComponent';
 import { Link } from 'react-router-dom';
-import MapThemeFactory from '../componentListNPM/themes/mapThemes/mapThemeFactory';
+import MapThemeFactory from '../mapThemes/mapThemeFactory';
 
 
 export default class MapComponent extends Component {
@@ -88,7 +88,9 @@ export default class MapComponent extends Component {
             {cursor:"pointer", ...this.props.delOptions?.style }:
           this.props.delOptions?.theme?
           {cursor:"pointer", ...f.getMapThemeFactory()[this.props.delOptions?.theme].delstyle }: 
-          {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
+          {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{
+            
+            componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
        {this.props.linkOptions?.cells?.includes(index)?(
        <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.innerlinkOptions?.path[this.props.innerlinkOptions.cells.indexOf(index)]? this.props.innerlinkOptions.path[this.props.innerlinkOptions.cells.indexOf(index)]: this.props.innerlinkOptions.path[this.props.innerlinkOptions.path.length-1]+ item.getJson()._id}>
         {this.props.delOptions?.picURL?(<img style={{width:"20px", height:"20px"}} src={this.props.delOptions.picURL}/>):(<>{this.props.delOptions?.name? this.props.delOptions.name:c}</>)}
@@ -145,7 +147,7 @@ export default class MapComponent extends Component {
       })}>
        {this.props.innerlinkOptions?.cells?.includes(index)?(
         <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.innerlinkOptions?.path[this.props.innerlinkOptions.cells.indexOf(index)]? this.props.innerlinkOptions.path[this.props.innerlinkOptions.cells.indexOf(index)]: this.props.innerlinkOptions.path[this.props.innerlinkOptions.path.length-1]+ item.getJson()._id}>
-  <c.custom props={{...c.props}} obj={item} style={{...c.style}}/></Link>):(<c.custom props={{...c.props}} obj={item} style={{...c.style}}/>)}</div>)}
+  <c.custom props={{...c.props}} app={{...c.props.app}} obj={item} style={{...c.style}}/></Link>):(<c.custom app={{...c.props.app}} props={{...c.props}} obj={item} style={{...c.style}}/>)}</div>)}
 
       {/* IS CELL AN INPUTTYPE */}
       {inputTypes.includes(Object.keys(c)[0]) &&(
@@ -220,7 +222,7 @@ export default class MapComponent extends Component {
       }
           onClick={this.props.functions?.cells.includes(index)&&(
       ()=>{
-        this.props.functions.functions[this.props.functions?.cells.indexOf(index)](item);
+        this.props.functions.functions.length===1?this.props.functions?.functions[0](item):this.props.functions.functions[this.props.functions?.cells.indexOf(index)](item);
       })
           }>
            {this.props.linkOptions?.cells?.includes(index)?(
@@ -254,7 +256,9 @@ export default class MapComponent extends Component {
             {cursor:"pointer", ...this.props.delOptions?.style }:
           this.props.delOptions?.theme?
           {cursor:"pointer", ...f.getMapThemeFactory()[this.props.delOptions?.theme].delstyle }: 
-          {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
+          {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{
+            debugger
+            componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
          {this.props.linkOptions?.cells?.includes(index)?(
          <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}>
           {this.props.delOptions?.picURL?(<img style={{width:"20px", height:"20px"}} src={this.props.delOptions.picURL}/>):(<>{this.props.delOptions?.name? this.props.delOptions.name:c}</>)}
@@ -322,7 +326,7 @@ export default class MapComponent extends Component {
       })}>
          {this.props.linkOptions?.cells?.includes(index)?(
           <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}>
-    <c.custom props={{...c.props}} obj={item} style={c.style? //if
+    <c.custom props={{...c.props}} app={{...c.props.app}} obj={item} style={c.style? //if
         c.style://then
         this.props.innerCellStyle?//else if
              this.props.innerCellStyle: //then
@@ -331,7 +335,7 @@ export default class MapComponent extends Component {
               f.getMapThemeFactory()[this.props.innerCellTheme]?.innerCellStyle?.default: //then
               styles.innerCellStyle[this.props.innerCellTheme]://otherwise
            styles.innerCellStyle.default//otherwise
-      }/></Link>):(<c.custom props={{...c.props}} obj={item} style={c.style? //if
+      }/></Link>):(<c.custom props={{...c.props, }} app={{...c.props.app}} obj={item} style={c.style? //if
       c.style://then
       this.props.innerCellStyle?//else if
            this.props.innerCellStyle: //then
@@ -412,7 +416,7 @@ export default class MapComponent extends Component {
     }
     let inputTypes=["text", "textArea", "richEditor"];
     let mapThemes=["default", "keep", "mySpawn", "calendar", "defaultBorder", "defaultTable", "defaultAlternate", ];
-
+    
 
     let types={
       //InnerMap type

@@ -5,8 +5,8 @@ class LegatoMap {
     getMapTheme(){
         let style={ 
         containerStyle: {
-            default: {display:'flex', flexDirection:"column"},
-            row: {display:'flex', flexDirection:"row"},
+            default: {display:'flex', flexDirection:"row"},
+            column: {display:'flex', flexDirection:"column"},
             wrapRow:{ display:'flex', flexDirection:"row", flexWrap:"wrap"},
             wrapColumn:{ display:'flex', flexDirection:"column", flexWrap:"wrap"},
           },
