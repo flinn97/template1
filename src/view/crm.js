@@ -271,7 +271,7 @@ class MainContent extends Component{
         <div style={{fontSize:"20px", marginRight:"6.5vw"}}>Phone</div>
         <div style={{fontSize:"20px", marginRight:"5.5vw"}}>Platform</div>
         </>)}
-        <div style={{fontSize:"20px", marginRight:"5vw"}}>Email</div>
+        {!componentList.getComponent('user', 'taylormdavidson@gmail.com', "owner")&&<div style={{fontSize:"20px", marginRight:"5vw"}}>Email</div>}
         {(state.checkComplete && state.opps.getUpdater("update").length>0) &&(
         <>
         <div style={{fontSize:"20px",  cursor:"pointer", color:"red"}} onClick={async ()=>{
@@ -300,8 +300,8 @@ class MainContent extends Component{
       <MapComponent app={app} name="person" filter={{search:state.switchcase, attribute:"tag"}}  cells={[{custom: PrepareUpdateCheckBox, props:{app:app}}, "name", "phone", "platform", "email", ]} 
       functions={{cells:[1,2,3,], functions:[(component)=>{
           app.setPopup({operate:"update", operation:"cleanPrepare", object:component}, "addContact")
-      }]}}/>):(<MapComponent app={app} name="person" filter={{search:state.switchcase, attribute:"tag"}}  cells={[ "name",  "email", ]} 
-      functions={{cells:[0,1,], functions:[(component)=>{
+      }]}}/>):(<MapComponent app={app} name="person" filter={{search:state.switchcase, attribute:"tag"}}  cells={componentList.getComponent('user', 'taylormdavidson@gmail.com', "owner")?[{custom: PrepareUpdateCheckBox, props:{app:app}}, "name",]:[ "name",  "email", ]} 
+      functions={{cells:componentList.getComponent('user', 'taylormdavidson@gmail.com', "owner")?[1]:[0,1,], functions:[(component)=>{
           app.setPopup({operate:"update", operation:"cleanPrepare", object:component}, "addContact")
       }]}}/>)}
     </div>

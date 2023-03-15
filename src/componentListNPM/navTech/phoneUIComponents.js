@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 // import auth from '../services/auth';
 import "../App.css";
 import NavItems from './navItem';
@@ -21,17 +21,28 @@ export class LegatoPhone extends Component {
     super(props);
     this.showMenu=this.showMenu.bind(this);
     this.hideMenu=this.hideMenu.bind(this);
-
+    this.handleClickOutside=this.handleClickOutside.bind(this);
+    this.menuRef = React.createRef();
     this.state={
       left: -300
     }
   }
-  async componentDidUpdate(){
-    if(this.props.app.state.menuSlide){
-      await this.props.app.dispatch({menuSlide:false});
-      this.hideMenu();
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+}
+componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+}
+handleClickOutside(event) {
+    if (this.menuRef && !this.menuRef.current.contains(event.target)) {
+       
+           this.hideMenu();
+        
+       
     }
-  }
+}
+
+ 
   async showMenu(){
     
     if(this.state.left===-300){
@@ -80,7 +91,7 @@ export class LegatoPhone extends Component {
       minimal:<Minimal app={app} alignment={this.props.alignment} theme={this.props.options?.phoneTheme? this.props.options?.phoneTheme:"minimal"} obj = {this.props.obj} template={this.props.template} options={this.props.options}/>,
     }
   return (
-    <div style={this.props.options?.phoneUIsectionsContainerStyle?{...this.props.options?.phoneUIsectionsContainerStyle, position:"absolute", left:this.state.left}:
+    <div ref ={this.menuRef} style={this.props.options?.phoneUIsectionsContainerStyle?{...this.props.options?.phoneUIsectionsContainerStyle, position:"absolute", left:this.state.left}:
     this.props.options?.phoneUIsectionsContainerTheme?{...f[this.props.options?.phoneUIsectionsContainerTheme][this.props.alignment].phoneUIsectionsContainer, position:"absolute", left:this.state.left}:
     {...style.phoneUIsectionsContainer, position:"absolute", left:this.state.left}}><div onClick={this.showMenu} style={{position:"fixed", left:"0", top:"0", marginTop:"5px", marginLeft:"5px", borderRadius:"50%", width:"25px", height:"25px", background:this.state.left===-300?"#0698D3":"white", zIndex:6000}}></div>
     {phoneUI[this.props.phoneUITheme]}

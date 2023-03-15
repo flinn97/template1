@@ -14,6 +14,7 @@ import kraken from "../pics/runesTest1/purple.png";
 
 
 class Auth {
+    urlEnpoint = "Samantha"
 
     async getCurrentUser() {
         return localStorage.getItem("user");
@@ -78,7 +79,7 @@ class Auth {
             IDlist.push(list[key].getJson()._id)
         }
         let rawData = [];
-        const components = await query(collection(db, "Samanthausers", "SamanthaAPP", "components"), where('owner', '==', email), orderBy("date"));
+        const components = await query(collection(db, this.urlEnpoint+"users", this.urlEnpoint+"APP", "components"), where('owner', '==', email), orderBy("date"));
         let comps = await getDocs(components);
         for (const key in comps.docs) {
             let data = comps.docs[key].data()
@@ -243,14 +244,14 @@ class Auth {
                             component.owner=email
                         }
                         component.date = await serverTimestamp();
-                        await setDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component._id), component);
+                        await setDoc(doc(db, this.urlEnpoint+"users", this.urlEnpoint+"APP", "components", component._id), component);
                         break;
                     case "del":
-                        await deleteDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component));
+                        await deleteDoc(doc(db, this.urlEnpoint+"users", this.urlEnpoint+"APP", "components", component));
                         break;
                     case "update":
                         component.date = await serverTimestamp();
-                        await updateDoc(doc(db, "Samanthausers", "SamanthaAPP", "components", component._id), component);
+                        await updateDoc(doc(db, this.urlEnpoint+"users", this.urlEnpoint+"APP", "components", component._id), component);
                         break;
                 }
 
