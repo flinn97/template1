@@ -118,8 +118,9 @@ class DefaultStyles {
 
             biggestCardContentWithTab:
             {   padding: ".5rem 1rem",
+            
                 top: "50%",
-                height: "91%"
+                height: "85%"
             },
 
             tallCardContentWithTab:
@@ -688,8 +689,9 @@ class DefaultStyles {
 
             biggestCardContentWithTab:
             {   padding: ".5rem 1rem",
+            
                 top: "50%",
-                height: "91%"
+                height: "85%"
             },
 
             tallCardContentWithTab:
@@ -711,7 +713,7 @@ class DefaultStyles {
             },
 
             cardContent:
-            {   padding: ".5rem 1rem",
+            {   padding: "5px",
                 height: "100%",
             },
            
@@ -1257,8 +1259,9 @@ class DefaultStyles {
 
             biggestCardContentWithTab:
             {   padding: ".5rem 1rem",
+            
                 top: "50%",
-                height: "91%"
+                height: "85%"
             },
 
             tallCardContentWithTab:
@@ -1280,7 +1283,7 @@ class DefaultStyles {
             },
 
             cardContent:
-            {   padding: ".5rem 1rem",
+            {   padding: "5px",
                 height: "100%",
             },
            

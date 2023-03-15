@@ -263,7 +263,7 @@ class MainContent extends Component{
     
 
     return(
-    <div>
+    <div >
       <div style={{display:'flex', flexDirection:'row', marginLeft:"50px"}}>
         <div style={{fontSize:"20px", marginRight:"7vw"}}>Name</div>
         {window.innerWidth>620&&(

@@ -94,11 +94,48 @@ class Person extends componentBase{
     
 }
 
+class Task extends componentBase{
+    constructor(opps){
+        super(opps);
+        this.markDone=this.markDone.bind(this);
+        // if(this.json.lastChecked!=="" && this.json.lastChecked!==moment().format('L')){
+        //     this.json.lastChecked=moment().format('L');
+        //     this.json.done=false;
+        // }
+        
+    }
+    json= {
+        
+        type: "task",
+        name: "",
+        done: false,
+        lastChecked: "",
+        _id: ""
+       
+
+    }
+    markDone(){
+        debugger
+        this.json.done=!this.json.done;
+        if(this.json.done){
+            this.json.lastChecked=moment().format('L');
+        }
+        
+        
+        this.operationsFactory.cleanPrepareRun({update:this})
+    }
+
+    
+
+    
+    
+}
+
 
 
 
 function forFactory(){
-    return { user: UserThings, tag:Tag, person:Person  }
+    return { user: UserThings, tag:Tag, person:Person, task:Task  }
 }
 
 

@@ -10,6 +10,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import AddTag from './view/addTag';
 import AddContact from './view/addContact';
 import Login from './componentListNPM/componentForms/fullForms/registrationStuff/login';
+import AddTask from './view/addTask';
 // import DeletePopup from './view/deletePopup';
 // import KeepDel from './view/keepDelete';
 
@@ -113,6 +114,8 @@ export default class Dispatch extends Component {
      {/* //notification: int variable of watching something? Or string pointing to type that gets info from object for notification. Object contains function for notifications, and it goes and interacts with it. Either give it a string or a User Object. */}
     <div style={{...center, paddingTop:"50px", paddingLeft:window.innerWidth<600? "0px": window.innerWidth<1000?"10vw": window.innerWidth<1200? "25vw": window.innerWidth<1400? "18vw": "15vw", width:"100%", height:"100%"}}>
     {(state.popupSwitch==="addTag"&& state.currentComponent?.getJson().type==="tag")&& <AddTag app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+    {(state.popupSwitch==="addTask"&& state.currentComponent?.getJson().type==="task")&& <AddTask app={app} type="popup" options={{cardType: "smallestCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
+
         {(state.popupSwitch==="addContact"&& state.currentComponent?.getJson().type==="person")&& <AddContact app={app} type="popup" options={{cardType: "bigCard" }} handleClose={()=>{app.dispatch({popupSwitch:"",currentComponent:undefined})}}/>}
 
      <Routes>

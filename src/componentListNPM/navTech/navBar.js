@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 // import auth from '../services/auth';
 import "../App.css";
 import Legato from './legatoNavBar.js';
@@ -11,7 +11,25 @@ import { LegatoPhone, FlinnAppsPhone, PhoneBottomNav } from './phoneUIComponents
 export default class NavBar extends Component {
   constructor(props){
     super(props);
+    this.wrapperRef = React.createRef();
+
+    this.handleClickOutside=this.handleClickOutside.bind(this)
   }
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+}
+componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+}
+handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+        if (this.props.emitClickedOutside !== undefined)
+        {
+            this.props.app.dispatch({menuSlide:true})
+        }
+       
+    }
+}
 
   render(){
     let app = this.props.app;
@@ -56,7 +74,7 @@ export default class NavBar extends Component {
     }
     let container = theme[alignment];
   return (
-    <div style={
+    <div ref={this.wrapperRef} style={
       this.props.options?.navContainerStyle?{...this.props.options?.navContainerStyle}:
       this.props.options?.navContainerTheme?f[this.props.options?.navContainerTheme][alignment].navContainer:
       container.navContainer}>

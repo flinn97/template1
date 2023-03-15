@@ -26,6 +26,12 @@ export class LegatoPhone extends Component {
       left: -300
     }
   }
+  async componentDidUpdate(){
+    if(this.props.app.state.menuSlide){
+      await this.props.app.dispatch({menuSlide:false});
+      this.hideMenu();
+    }
+  }
   async showMenu(){
     
     if(this.state.left===-300){

@@ -14,6 +14,7 @@ import dashboardIcon from './icons/dashboard.svg';
 import studentIcon from './icons/students.svg';
 import navThemeFactory from './componentListNPM/navThemes/navThemeFactory';
 import OpenAIPage from './view/openAIPage';
+import Daily from './view/daily';
 // import NavThemeFactory from './componentListNPM/navThemes/navThemeFactory';
 
 //fonts
@@ -63,7 +64,7 @@ export default class App extends Component {
       switchCase:[
         {path:"/", comp:Home, name: "Home", linkIcon:dashboardIcon, }, //icon: "home.svg"   linkIcon:Cel, notification:2, notifyTheme:"flinnApps"
         {path:"/managetags", comp:ManageTags, name: "Manage Tags", linkIcon:studentIcon, }, //icon: "home.svg"   linkIcon:Cel, notification:2, notifyTheme:"flinnApps"
-        {path:"/openai", comp:OpenAIPage, name:"Open AI"}
+        {path:"/dailygrind", comp:Daily, name:"Daily Grind", linkIcon:calendarIcon}
 
         // {path:"/", comp:CardsPrac, name: "Product 1", linkIcon:dashboardIcon, notification:2, linkSection: 2}, //icon: "home.svg"   linkIcon:Cel, notification:2, notifyTheme:"flinnApps"
         // {path: "/popups", comp:PopupPrac, name: "Product 2", linkIcon:studentIcon, linkSection: 2},
@@ -83,10 +84,18 @@ export default class App extends Component {
     if(this.state.updateRun){
       this.setState({popupSwitch:"", currentComponent:undefined, updateRun:undefined, checkComplete:false})
     }
+    if(this.state.formUpdate){
+      let update = this.state.formUpdate
+      await this.setState({formUpdate:false});
+      if(update==="checkbox"){
+
+    }
+    }
     if(this.state.backend){
+      debugger
       await this.setState({backend: false});
       auth.dispatch(this.state.backendUpdate, this.state.user.getJson()._id);
-      debugger
+      
         await this.state.componentList.sortSelectedList("tag", "order");
         this.setState({})
       

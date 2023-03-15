@@ -5,7 +5,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 export default async function generate(animal) {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
   if (!configuration.apiKey) {

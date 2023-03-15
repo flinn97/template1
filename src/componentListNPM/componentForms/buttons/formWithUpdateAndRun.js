@@ -17,12 +17,12 @@ export default class FormWithUpdateAndRun extends Component {
      * For rich editor to update html instead of plain text.
      * @param {*} change 
      */
-    handleHTMLChange(change){
+    handleHTMLChange(obj, change){
         
         this.setState({ [this.props.name]: change });
   }
 
-	handleChange = async (event) => {
+	handleChange = async (obj, event) => {
         debugger
         if(!event.target){
             this.setState({ [this.props.name]: event });

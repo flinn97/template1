@@ -91,6 +91,7 @@ export default class MapComponent extends Component {
           {cursor:"pointer", ...styles.delstyle }} onClick={this.props.delOptions?.func? this.props.delOptions.func: ()=>{
             
             componentList.getOperationsFactory().cleanPrepareRun({del:item})}}>
+              
        {this.props.linkOptions?.cells?.includes(index)?(
        <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.innerlinkOptions?.path[this.props.innerlinkOptions.cells.indexOf(index)]? this.props.innerlinkOptions.path[this.props.innerlinkOptions.cells.indexOf(index)]: this.props.innerlinkOptions.path[this.props.innerlinkOptions.path.length-1]+ item.getJson()._id}>
         {this.props.delOptions?.picURL?(<img style={{width:"20px", height:"20px"}} src={this.props.delOptions.picURL}/>):(<>{this.props.delOptions?.name? this.props.delOptions.name:c}</>)}
@@ -157,7 +158,88 @@ export default class MapComponent extends Component {
         })}>
       {this.props.innerlinkOptions?.cells?.includes(index)?(
         <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.innerlinkOptions?.path[this.props.innerlinkOptions.cells.indexOf(index)]? this.props.innerlinkOptions.path[this.props.innerlinkOptions.cells.indexOf(index)]: this.props.innerlinkOptions.path[this.props.innerlinkOptions.path.length-1]+ item.getJson()._id}>
-  <ParentFormComponent type={[Object.keys(c)[0]]} obj = {item} name={c[Object.keys(c)[0]]}/></Link>):(<ParentFormComponent type={[Object.keys(c)[0]]} obj = {item} name={c[Object.keys(c)[0]]}/>)}
+  <ParentFormComponent type={c.inputType} obj = {item} name={c.name}
+    rows={c.rows}
+    theme={c.theme}
+    updateOnClickOutside= {c.updateOnClickOutside}
+    func={c.func}
+    cols={c.cols}
+    emitClickedOutside={c.emitClickedOutside}
+    id={c.id}
+    
+    inputStyle={c.inputStyle}
+    spellCheck={c.spellCheck}
+    label={c.label}
+    prepareOnClick={c.prepareOnClick}
+    labelStyle={c.labelStyle}
+    wrapperStyle={c.wrapperStyle}
+    class = {c.class} 
+    placeholder={c.placeholder} 
+    cleanPrepareRun={c.cleanPrepareRun}
+    prepareRun={c.prepareRun}
+    sendUpdate={c.sendUpdate}
+    min={c.min}
+    max={c.max}
+    autoComplete={c.autoComplete}
+    checked={c.checked}
+    minLength={c.minLength}
+    maxLength={c.maxLength}
+    
+    required={c.required}
+    disabled={c.disabled}
+    requiredMessage={c.requiredMessage}
+    defaultValue={c.defaultValue}
+        app={this.props.app}
+        labelClass={c.labelClass}
+        onClick={c.prepareOnClickFunc}
+        wrapperClass={c.wrapperClass}
+        size={c.size}
+        selectOptions={c.selectOptions}
+        textOptions= {c.textOptions}
+        update={c.update}
+        handleChangeWithoutEvent={c.handleChangeWithoutEvent}
+           
+            tickClass={c.tickClass}/></Link>):(<ParentFormComponent type={c.inputType} obj = {item} name={c.name}
+              rows={c.rows}
+              theme={c.theme}
+              updateOnClickOutside= {c.updateOnClickOutside}
+              func={c.func}
+              cols={c.cols}
+              emitClickedOutside={c.emitClickedOutside}
+              id={c.id}
+              sendUpdate={c.sendUpdate}
+              inputStyle={c.inputStyle}
+              spellCheck={c.spellCheck}
+              label={c.label}
+              prepareOnClick={c.prepareOnClick}
+              labelStyle={c.labelStyle}
+              wrapperStyle={c.wrapperStyle}
+              class = {c.class} 
+              placeholder={c.placeholder} 
+              cleanPrepareRun={c.cleanPrepareRun}
+              prepareRun={c.prepareRun}
+          
+              min={c.min}
+              max={c.max}
+              autoComplete={c.autoComplete}
+              checked={c.checked}
+              minLength={c.minLength}
+              maxLength={c.maxLength}
+              required={c.required}
+              disabled={c.disabled}
+              requiredMessage={c.requiredMessage}
+              defaultValue={c.defaultValue}
+                  app={this.props.app}
+                  labelClass={c.labelClass}
+                  onClick={c.prepareOnClickFunc}
+                  wrapperClass={c.wrapperClass}
+                  size={c.size}
+                  selectOptions={c.selectOptions}
+                  textOptions= {c.textOptions}
+                  update={c.update}
+                  handleChangeWithoutEvent={c.handleChangeWithoutEvent}
+                     
+                      tickClass={c.tickClass}/>)}
   </div>)}
   {/* IS CELL A LIST OF CELLS */}
   {Array.isArray(c) &&(<div style={{...this.props.innerCell?.style}} onClick={this.props.innerFunctions?.cells.includes(index)&&(
@@ -195,7 +277,7 @@ export default class MapComponent extends Component {
     if(this.props.theme){
       styles= f.getMapThemeFactory()[this.props.theme]
     }
-    let inputTypes=["text", "textArea", "richEditor"];
+    let inputTypes=["text", "textArea", "richEditor", "checkbox", ];
     let mapThemes=["default", "keep", "mySpawn", "calendar", "defaultBorder", "defaultTable", "defaultAlternate", ];
     let html = <>
     
@@ -347,7 +429,7 @@ export default class MapComponent extends Component {
     }/>)}</div>)}
   
         {/* IS CELL AN INPUTTYPE */}
-        {inputTypes.includes(Object.keys(c)[0]) &&(
+        {c.inputType &&(
         <div style={c.style? //if
         c.style://then
         this.props.innerCellStyle?//else if
@@ -360,10 +442,96 @@ export default class MapComponent extends Component {
       } onClick={this.props.functions?.cells.includes(index)&&(
           ()=>{
             this.props.functions.functions[this.props.functions?.cells.indexOf(index)](item);
-          })}>
+          })}> 
         {this.props.linkOptions?.cells?.includes(index)?(
           <Link style={this.props.linkOptions?.styles&&this.props.linkOptions?.styles[index]? this.props.linkOptions?.styles[index]: state.linkStyleDefault} to={this.props.linkOptions?.path[this.props.linkOptions.cells.indexOf(index)]? this.props.linkOptions.path[this.props.linkOptions.cells.indexOf(index)]: this.props.linkOptions.path[this.props.linkOptions.path.length-1]+ item.getJson()._id}>
-    <ParentFormComponent type={[Object.keys(c)[0]]} obj = {item} name={c[Object.keys(c)[0]]}/></Link>):(<ParentFormComponent type={[Object.keys(c)[0]]} obj = {item} name={c[Object.keys(c)[0]]}/>)}
+    <ParentFormComponent type={c.inputType} obj = {item} name={c.name}
+    rows={c.rows}
+    theme={c.theme}
+    sendUpdate={c.sendUpdate}
+    updateOnClickOutside= {c.updateOnClickOutside}
+    func={c.func}
+    cols={c.cols}
+    emitClickedOutside={c.emitClickedOutside}
+    id={c.id}
+    cleanPrepareRun={c.cleanPrepareRun}
+    prepareRun={c.prepareRun}
+
+  
+     
+    inputStyle={c.inputStyle}
+    spellCheck={c.spellCheck}
+    label={c.label}
+    prepareOnClick={c.prepareOnClick}
+    labelStyle={c.labelStyle}
+    wrapperStyle={c.wrapperStyle}
+    class = {c.class} 
+    placeholder={c.placeholder} 
+        
+    min={c.min}
+    max={c.max}
+    autoComplete={c.autoComplete}
+    checked={c.checked}
+    minLength={c.minLength}
+    maxLength={c.maxLength}
+    required={c.required}
+    disabled={c.disabled}
+    requiredMessage={c.requiredMessage}
+    defaultValue={c.defaultValue}
+        app={this.props.app}
+        labelClass={c.labelClass}
+        onClick={c.prepareOnClickFunc}
+        wrapperClass={c.wrapperClass}
+        size={c.size}
+        selectOptions={c.selectOptions}
+        textOptions= {c.textOptions}
+        update={c.update}
+        handleChangeWithoutEvent={c.handleChangeWithoutEvent}
+           
+            tickClass={c.tickClass}/></Link>):(
+    <ParentFormComponent type={c.inputType} obj = {item} name={c.name}
+    rows={c.rows}
+    theme={c.theme}
+    updateOnClickOutside= {c.updateOnClickOutside}
+    func={c.func}
+    cols={c.cols}
+    emitClickedOutside={c.emitClickedOutside}
+    id={c.id}
+    cleanPrepareRun={c.cleanPrepareRun}
+    prepareRun={c.prepareRun}
+    sendUpdate={c.sendUpdate}
+    inputStyle={c.inputStyle}
+    spellCheck={c.spellCheck}
+    label={c.label}
+    prepareOnClick={c.prepareOnClick}
+    labelStyle={c.labelStyle}
+    wrapperStyle={c.wrapperStyle}
+    class = {c.class} 
+    placeholder={c.placeholder} 
+        
+    min={c.min}
+    max={c.max}
+    autoComplete={c.autoComplete}
+    checked={c.checked}
+    minLength={c.minLength}
+    maxLength={c.maxLength}
+    required={c.required}
+    disabled={c.disabled}
+    requiredMessage={c.requiredMessage}
+    defaultValue={c.defaultValue}
+        app={this.props.app}
+        labelClass={c.labelClass}
+        onClick={c.prepareOnClickFunc}
+        wrapperClass={c.wrapperClass}
+        size={c.size}
+        selectOptions={c.selectOptions}
+        textOptions= {c.textOptions}
+        update={c.update}
+        handleChangeWithoutEvent={c.handleChangeWithoutEvent}
+           
+            tickClass={c.tickClass}
+      />
+    )}
     </div>)}
         {/* IS CELL A LIST OF CELLS */}
         {Array.isArray(c) &&(<div style={

@@ -16,6 +16,12 @@ class CheckBox extends Component {
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
+    componentDidUpdate(props, state){
+        if(props!==this.props){
+            this.setState({checked:this.props.value})
+        }
+
+    }
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
             if (this.props.emitClickedOutside !== undefined)
@@ -34,6 +40,7 @@ class CheckBox extends Component {
     async markcheckbox() {
         await this.setState({checked:!this.state.checked})
         this.props.handleChange(this.state.checked);
+        
     }
 
     render() {

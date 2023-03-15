@@ -8,6 +8,7 @@ import Logo from './navBarLogo';
 import ProfilePic from './navBarProfilePic';
 import pic from "./Legato.svg"
 import NavThemeFactory from '../navThemes/navThemeFactory';
+import auth from '../../services/auth';
 
 
 
@@ -44,10 +45,11 @@ export default class Legato extends Component {
       {...style.sectionTwo}}>
         <NavItems app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options}/>
       </div>
-     {/* <div style={this.props.options?.sectionThreeStyle?{...this.props.options?.sectionThreeStyle}:
+     <div style={this.props.options?.sectionThreeStyle?{...this.props.options?.sectionThreeStyle}:
      this.props.options?.sectionThreeTheme?{...f[this.props.options?.sectionThreeTheme][this.props.alignment].sectionThree}:{...style.sectionThree}}>
-        <ProfilePic app={app} alignment={this.props.alignment} theme={this.props.theme} obj={this.props.obj} options={this.props.options} />
-      </div>  */}
+       <div style ={{color:"gray", marginBottom:window.innerHeight<1000?"200px":"50px", marginLeft:"80px", cursor:"pointer"}} onClick={auth.logout}>Logout</div>
+      </div> 
+      
     </div>
   )}
 }
