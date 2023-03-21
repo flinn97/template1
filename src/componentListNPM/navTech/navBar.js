@@ -15,22 +15,7 @@ export default class NavBar extends Component {
 
     this.handleClickOutside=this.handleClickOutside.bind(this)
   }
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
-}
-componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-}
-handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
-        if (this.props.emitClickedOutside !== undefined)
-        {
-            this.props.app.dispatch({menuSlide:true})
-        }
-       
-    }
-}
-
+  
   render(){
     let app = this.props.app;
     let state = app.state;
@@ -63,7 +48,7 @@ handleClickOutside(event) {
     let theme = this.props.theme?f[this.props.theme]:this.props.template?f[this.props.template]: state.defaultTheme?f[state.defaultTheme]:f.default;
     
     let alignment=this.props.alignment
-    if(window.innerWidth<500){
+    if(window.innerWidth<state.phoneUIChange){
       this.props.options.navContainerTheme = this.props.options?.phoneUI
       if(this.props.options?.phoneUIAlignment){
         alignment=this.props.options?.phoneUIAlignment
