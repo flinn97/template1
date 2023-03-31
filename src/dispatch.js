@@ -122,6 +122,15 @@ export default class Dispatch extends Component {
       {state.switchCase?.map((obj, index)=>
         <Route path={obj.path} element={<obj.comp app={app}/>} />
       )}
+      {state.idSwitchCase?.map((obj, index) =>
+                <Route path={obj.path + "/:id"} element={<obj.comp app={app} />} />
+
+              )}
+
+      {state.switchCase?.filter(obj => obj.idLink === true).map((obj, index) =>
+                <Route path={obj.path + "/:id"} element={<obj.idLinkComp app={app} />} />
+
+              )}
     
 </Routes>
 </div>
