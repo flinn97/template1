@@ -37,7 +37,7 @@ class Factory {
         if(Object.keys(this.factory).includes(obj.component)){
             let key = obj.component;
             let comp = new this.factory[key](this.operationsFactory);
-            comp.setJson({...comp.getJson(), ...obj.json, _id:Math.floor(Math.random()*100000)});
+            comp.setJson({...comp.getJson(), ...obj.json, _id:obj.json.id?obj.json.id:Math.floor(Math.random()*100000).toString()});
             return comp;     
         }
         

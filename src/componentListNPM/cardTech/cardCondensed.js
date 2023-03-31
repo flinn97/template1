@@ -229,7 +229,7 @@ class Card extends Component{
     let styles =state.styles;
 
     return(
-      <div className='scroller'  style={{ ...styles[this.props.type?this.props.type:"biggestCard"] }}>   
+      <div className='scroller'  style={{ ...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"] }}>   
             <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"]}}>
               <MainContent app={app} />
             </div>
@@ -250,7 +250,7 @@ class CardWithTab extends Component{
     let styles =state.styles;
 
     return(
-      <div  style={{...styles[this.props.type?this.props.type:"biggestCard"] }}>   
+      <div  style={{...styles[this.props.options?.cardType?this.props.options?.cardType:"biggestCard"] }}>   
       <div style={{...styles[this.props.options?.tabType?this.props.options?.tabType: "colorTab1"]}}> <TabContent app={app} /></div>   
       <div style={{...styles[this.props.options?.cardContent? this.props.options.cardContent: "cardContent"]}} className='scroller'>
         <MainContent app={app} />

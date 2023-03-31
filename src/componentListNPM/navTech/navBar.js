@@ -11,9 +11,7 @@ import { LegatoPhone, FlinnAppsPhone, PhoneBottomNav } from './phoneUIComponents
 export default class NavBar extends Component {
   constructor(props){
     super(props);
-    this.wrapperRef = React.createRef();
 
-    this.handleClickOutside=this.handleClickOutside.bind(this)
   }
   
   render(){
