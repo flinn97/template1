@@ -170,7 +170,7 @@ handleChange = (event) => {
           componentList:list,
           opps: list.getOperationsFactory()
         })
-        
+        await auth.setComponentList(list);
         
         let obj = await forFactory();
         for(const key in obj){

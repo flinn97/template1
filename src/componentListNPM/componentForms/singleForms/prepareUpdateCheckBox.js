@@ -31,6 +31,13 @@ class PrepareUpdateCheckBox extends Component {
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
+    async componentDidUpdate(){
+        if(this.props.app?.state?.unMarkCheck){
+            await this.props.app?.dispatch({unMarkCheck:false});
+            this.setState({checked:false});
+        }
+        
+    }
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
             if (this.props.emitClickedOutside !== undefined)
